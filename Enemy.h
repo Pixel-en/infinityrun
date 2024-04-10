@@ -1,21 +1,20 @@
 #pragma once
 #include "Engine/GameObject.h"
 
-
-class Player : public GameObject
+class Enemy : public GameObject
 {
 
     int hModel_;
-    bool Lon_;
-    bool Ron_;
-    float temp_;
+    float speed_;
+
 
 public:
+
     //コンストラクタ
-    Player(GameObject* parent);
+    Enemy(GameObject* parent);
 
     //デストラクタ
-    ~Player();
+    ~Enemy();
 
     //初期化
     void Initialize() override;
@@ -29,5 +28,5 @@ public:
     //開放
     void Release() override;
 
-    void OnCollision(GameObject* pTarget) override;
+    void SetSpeed(float _speed) { speed_ = _speed; }
 };
