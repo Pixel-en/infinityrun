@@ -1,9 +1,9 @@
 #pragma once
 #include "Engine/GameObject.h"
 #include <vector>
-#include "Road.h"
 
 using std::vector;
+class Player;
 
 class PlayScene : public GameObject
 {
@@ -12,7 +12,10 @@ class PlayScene : public GameObject
 
 	float EnemySpeed;
 
-	vector<Road*> Roads;
+	Player *p;
+
+	int framecnt;
+	bool Spawnbuffer;
 
 public:
 	//コンストラクタ
@@ -30,4 +33,6 @@ public:
 
 	//開放
 	void Release() override;
+
+	void EnemySpawn();
 };

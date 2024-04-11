@@ -10,6 +10,8 @@ class Player : public GameObject
     bool Ron_;
     float temp_;
 
+    bool roadin_;
+
 public:
     //コンストラクタ
     Player(GameObject* parent);
@@ -30,4 +32,7 @@ public:
     void Release() override;
 
     void OnCollision(GameObject* pTarget) override;
+
+    bool GetRoadIn() { return roadin_; }
+    void SetRoadIn(bool _set) { roadin_ = _set; }
 };

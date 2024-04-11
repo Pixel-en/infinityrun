@@ -152,6 +152,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayScene.cpp" />
     <ClCompile Include="Road.cpp" />
+    <ClCompile Include="Spawn.cpp" />
     <ClCompile Include="TestObject.cpp" />
     <ClCompile Include="TestScene.cpp" />
   </ItemGroup>
@@ -183,6 +184,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayScene.h" />
     <ClInclude Include="Road.h" />
+    <ClInclude Include="Spawn.h" />
     <ClInclude Include="TestObject.h" />
     <ClInclude Include="TestScene.h" />
   </ItemGroup>

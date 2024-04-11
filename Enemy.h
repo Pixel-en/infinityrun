@@ -7,7 +7,6 @@ class Enemy : public GameObject
     int hModel_;
     float speed_;
 
-
 public:
 
     //コンストラクタ
@@ -29,4 +28,6 @@ public:
     void Release() override;
 
     void SetSpeed(float _speed) { speed_ = _speed; }
+
+
 };

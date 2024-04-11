@@ -1,18 +1,16 @@
 #pragma once
 #include "Engine/GameObject.h"
 
-class Road : public GameObject
+//◆◆◆を管理するクラス
+class Spawn : public GameObject
 {
-
-    int hModel_;
-    float speed_;
 
 public:
     //コンストラクタ
-    Road(GameObject* parent);
+    Spawn(GameObject* parent);
 
     //デストラクタ
-    ~Road();
+    ~Spawn();
 
     //初期化
     void Initialize() override;
@@ -25,5 +23,6 @@ public:
 
     //開放
     void Release() override;
-    void SetSpeed(float _speed) { speed_ = _speed; }
+
+    void OnCollision(GameObject* pTarget) override;
 };

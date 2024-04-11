@@ -11,7 +11,7 @@ namespace {
 
 
 Player::Player(GameObject* parent)
-	:GameObject(parent, "Player"), hModel_(-1), Lon_(false),Ron_(false),temp_(0.0)
+	:GameObject(parent, "Player"), hModel_(-1), Lon_(false),Ron_(false),temp_(0.0),roadin_(false)
 {
 }
 
@@ -71,4 +71,8 @@ void Player::OnCollision(GameObject* pTarget)
 {
 	if (pTarget->GetObjectName() == "Enemy")
 		KillMe();
+
+	if (pTarget->GetObjectName() == "Road") {
+		roadin_ = true;
+	}
 }
