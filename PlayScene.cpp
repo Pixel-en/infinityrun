@@ -6,9 +6,10 @@
 #include "Spawn.h"
 #include "Engine/Debug.h"
 #include "Engine/BoxCollider.h"
+#include "Engine/SceneManager.h"
 
 PlayScene::PlayScene(GameObject* parent)
-	:GameObject(parent,"PlayScene"),x1(0),x2(0),EnemySpeed(21.0),framecnt(0),Spawnbuffer(false)
+	:GameObject(parent,"PlayScene"),x1(0),x2(0),EnemySpeed(21.0),framecnt(0),Spawnbuffer(false),pframecnt(0)
 {
 }
 
@@ -27,6 +28,8 @@ void PlayScene::Initialize()
 
 void PlayScene::Update()
 {
+
+
 
 	if (p->GetRoadIn()) {
 		FindChildObject("Road")->ClearCollider();
@@ -48,6 +51,15 @@ void PlayScene::Update()
 			framecnt = 0;
 		}
 	}
+
+	if (FindChildObject("Player") == nullptr) {
+		pframecnt++;
+		if (pframecnt >= 60) {
+			SceneManager* s = (SceneManager*)FindObject("SceneManager");
+			s->ChangeScene(SCENE_ID_RESULT);
+		}
+	}
+
 
 }
 

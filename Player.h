@@ -1,7 +1,6 @@
 #pragma once
 #include "Engine/GameObject.h"
 
-
 class Player : public GameObject
 {
 
@@ -11,6 +10,9 @@ class Player : public GameObject
     float temp_;
 
     bool roadin_;
+
+    int secondcnt;
+    int point;
 
 public:
     //コンストラクタ

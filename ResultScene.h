@@ -1,28 +1,18 @@
 #pragma once
 #include "Engine/GameObject.h"
-#include <vector>
+#include "Engine/Text.h"
 
-using std::vector;
-class Player;
-
-class PlayScene : public GameObject
+class ResultScene : public GameObject
 {
 
-	int x1, x2;
-
-	float EnemySpeed;
-
-	Player *p;
-
-	int framecnt;
-	bool Spawnbuffer;
-	int pframecnt;
-
+	int hImage_;
+	Text* pText;
+	int point;
 
 public:
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
-	PlayScene(GameObject* parent);
+	ResultScene(GameObject* parent);
 
 	//初期化
 	void Initialize() override;
@@ -36,5 +26,5 @@ public:
 	//開放
 	void Release() override;
 
-	void EnemySpawn();
+	//void Setpoint(int _point) { point = _point; }
 };

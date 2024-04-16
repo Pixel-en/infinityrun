@@ -3,6 +3,7 @@
 #include "Engine/Input.h"
 #include "Engine/Debug.h"
 #include "Engine/SphereCollider.h"
+#include "ResultScene.h"
 
 namespace {
 	const float MOVE_SPEED{ 3.0f };	//プレイヤーの動くスピード
@@ -11,7 +12,7 @@ namespace {
 
 
 Player::Player(GameObject* parent)
-	:GameObject(parent, "Player"), hModel_(-1), Lon_(false),Ron_(false),temp_(0.0),roadin_(false)
+	:GameObject(parent, "Player"), hModel_(-1), Lon_(false),Ron_(false),temp_(0.0),roadin_(false), secondcnt(0), point(0)
 {
 }
 
@@ -55,6 +56,13 @@ void Player::Update()
 			transform_.position_.x = MAX;
 	}
 
+	secondcnt++;
+
+	if (secondcnt >= 60) {
+		secondcnt = 0;
+		point++;
+	}
+
 }
 
 void Player::Draw()
@@ -69,8 +77,11 @@ void Player::Release()
 
 void Player::OnCollision(GameObject* pTarget)
 {
-	if (pTarget->GetObjectName() == "Enemy")
+	if (pTarget->GetObjectName() == "Enemy") {
+		//ResultScene* r = (ResultScene*)FindObject("ResultScene");
+		//r->Setpoint(point);
 		KillMe();
+	}
 
 	if (pTarget->GetObjectName() == "Road") {
 		roadin_ = true;
