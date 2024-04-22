@@ -9,7 +9,7 @@
 #include "Engine/SceneManager.h"
 
 PlayScene::PlayScene(GameObject* parent)
-	:GameObject(parent,"PlayScene"),x1(0),x2(0),EnemySpeed(21.0),framecnt(0),Spawnbuffer(false),pframecnt(0)
+	:GameObject(parent,"PlayScene"),x1(0),x2(0),EnemySpeed(7.0),framecnt(0),Spawnbuffer(false),pframecnt(0)
 {
 }
 
@@ -45,7 +45,7 @@ void PlayScene::Update()
 
 	if (Spawnbuffer) {
 		framecnt++;
-		if (framecnt >= 60-(EnemySpeed-7)) {
+		if (framecnt >= 60-(EnemySpeed-7)*2) {
 			Instantiate<Spawn>(this);
 			Spawnbuffer = false;
 			framecnt = 0;
@@ -89,4 +89,6 @@ void PlayScene::EnemySpawn()
 	Enemy* e2 = Instantiate<Enemy>(this);
 	e2->SetPosition(XMFLOAT3(float(x2) * 1.5, 0, 20.0f));
 	e2->SetSpeed(EnemySpeed);
+
+	p->Setupspeed(p->Getupspeed() - 0.1);
 }

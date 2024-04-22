@@ -3,7 +3,8 @@
 #include "Engine/Input.h"
 #include "Engine/Debug.h"
 #include "Engine/SphereCollider.h"
-#include "ResultScene.h"
+#include "Engine/SceneManager.h"
+
 
 namespace {
 	const float MOVE_SPEED{ 3.0f };	//プレイヤーの動くスピード
@@ -12,7 +13,7 @@ namespace {
 
 
 Player::Player(GameObject* parent)
-	:GameObject(parent, "Player"), hModel_(-1), Lon_(false),Ron_(false),temp_(0.0),roadin_(false), secondcnt(0), point(0)
+	:GameObject(parent, "Player"), hModel_(-1), Lon_(false),Ron_(false),temp_(0.0),roadin_(false), secondcnt(0), point(0),upspeed_(0.0f)
 {
 }
 
@@ -37,12 +38,12 @@ void Player::Update()
 		Ron_ = true;
 
 	if (Lon_)
-		transform_.position_.x -= MOVE_SPEED * 1.0 / 60.0;
+		transform_.position_.x -= (MOVE_SPEED - upspeed_) * 1.0 / 60.0;
 	if (Ron_)
-		transform_.position_.x += MOVE_SPEED * 1.0 / 60.0;
+		transform_.position_.x += (MOVE_SPEED - upspeed_) * 1.0 / 60.0;
 
 	if (Lon_ || Ron_) {
-		temp_ += MOVE_SPEED * 1 / 60;
+		temp_ += (MOVE_SPEED - upspeed_) * 1.0 / 60.0;
 		if (temp_ >= MAX) {
 			Lon_ = false;
 			Ron_ = false;
@@ -78,8 +79,8 @@ void Player::Release()
 void Player::OnCollision(GameObject* pTarget)
 {
 	if (pTarget->GetObjectName() == "Enemy") {
-		//ResultScene* r = (ResultScene*)FindObject("ResultScene");
-		//r->Setpoint(point);
+		SceneManager* s = (SceneManager*)FindObject("SceneManager");
+		s->SetPoint(point);
 		KillMe();
 	}
 

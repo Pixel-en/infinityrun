@@ -10,8 +10,8 @@ ResultScene::ResultScene(GameObject* parent)
 
 void ResultScene::Initialize()
 {
-	hImage_ = Image::Load("");
-	//assert(hImage_ >= 0);
+	hImage_ = Image::Load("Image/Result.png");
+	assert(hImage_ >= 0);
 
 	pText = new Text;
 	pText->Initialize();
@@ -30,7 +30,9 @@ void ResultScene::Draw()
 	Image::SetTransform(hImage_, transform_);
 	Image::Draw(hImage_);
 
-	//pText->Draw(400, 300, point);
+	SceneManager* s = (SceneManager*)FindObject("SceneManager");
+	pText->Draw(550, 400, "Score:");
+	pText->Draw(650, 400, s->GetPoint());
 }
 
 void ResultScene::Release()

@@ -30,8 +30,12 @@ public:
 	//引数：next	次のシーンのID
 	void ChangeScene(SCENE_ID next);
 
+
+	void SetPoint(int _set) { point = _set; }
+	int GetPoint() { return point; }
 private:
 	SCENE_ID currentSceneID_;	//現在のシーン
 	SCENE_ID nextSceneID_;		//次のシーン
 
+	int point = 0;
 };

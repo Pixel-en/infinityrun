@@ -14,6 +14,8 @@ class Player : public GameObject
     int secondcnt;
     int point;
 
+    float upspeed_;
+
 public:
     //コンストラクタ
     Player(GameObject* parent);
@@ -37,4 +39,7 @@ public:
 
     bool GetRoadIn() { return roadin_; }
     void SetRoadIn(bool _set) { roadin_ = _set; }
+
+    float Getupspeed() { return upspeed_; }
+    void Setupspeed(float _set) { upspeed_ = _set; }
 };

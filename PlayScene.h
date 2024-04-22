@@ -37,4 +37,6 @@ public:
 	void Release() override;
 
 	void EnemySpawn();
+
+	float GetEnemySpeed() { return EnemySpeed; }
 };

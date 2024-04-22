@@ -7,7 +7,6 @@ class ResultScene : public GameObject
 
 	int hImage_;
 	Text* pText;
-	int point;
 
 public:
 	//コンストラクタ
@@ -25,6 +24,4 @@ public:
 
 	//開放
 	void Release() override;
-
-	//void Setpoint(int _point) { point = _point; }
 };
