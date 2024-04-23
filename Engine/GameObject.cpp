@@ -1,6 +1,7 @@
 #include "gameObject.h"
 #include <assert.h>
 #include "global.h"
+#include <bitset>
 
 //コンストラクタ（親も名前もなし）
 GameObject::GameObject(void) :
@@ -107,6 +108,11 @@ std::list<GameObject*>* GameObject::GetChildList()
 	return &childList_;
 }
 
+int GameObject::GetChildListSize()
+{
+	return childList_.size();
+}
+
 //親オブジェクトを取得
 GameObject * GameObject::GetParent(void)
 {
@@ -145,6 +151,35 @@ GameObject * GameObject::FindChildObject(const std::string & name)
 	return nullptr;
 }
 
+int GameObject::FindChildObjectCount(const std::string& name)
+{
+	int sum = 0;
+
+	//子供がいないなら終わり
+	if (childList_.empty())
+		return -1;
+
+	//イテレータ
+	auto it = childList_.begin();	//先頭
+	auto end = childList_.end();	//末尾
+
+
+	//子オブジェクトから探す
+	while (it != end) {
+		//同じ名前のオブジェクトを見つけたらそれを返す
+		if ((*it)->GetObjectName() == name)
+			sum++;
+
+		if ((*it)->FindChildObject(name) != nullptr) {
+			//その子供（孫）以降にいないか探す
+			sum += (*it)->FindChildObjectCount(name);
+		}
+		//次の子へ
+		it++;
+	}
+	return sum;
+}
+
 //オブジェクトの名前を取得
 const std::string& GameObject::GetObjectName(void) const
 {
@@ -167,6 +202,93 @@ void GameObject::PushFrontChild(GameObject * obj)
 
 	obj->pParent_ = this;
 	childList_.push_front(obj);
+}
+
+void GameObject::SetFlagAllChildren(bool _isup, bool _isdraw, bool _isinit)
+{
+	//子供がいないなら終わり
+	if (childList_.empty())
+		return;
+
+	unsigned int bitflag = (0 << 0) | (0 << 1) | (0 << 2);
+	if (_isup) {
+		bitflag |= (1 << 0);
+	}
+	if (_isdraw) {
+		bitflag |= (1 << 1);
+	}
+	if (_isinit) {
+		bitflag |= (1 << 2);
+	}
+
+	Debug::Log("ビットフラグ", true);
+	Debug::Log(std::bitset<4>(bitflag).to_string(), true);
+
+	//イテレータ
+	auto it = childList_.begin();	//先頭
+	auto end = childList_.end();	//末尾
+
+
+	while (it != end)
+	{
+		FlagObjectSub(*it,bitflag);
+
+		BitConvertFlag(*it, bitflag);
+
+		it++;
+	}
+}
+
+void GameObject::BitConvertFlag(GameObject* obj, unsigned bitflag)
+{
+
+	//更新
+	if (bitflag & (1 << 0)) {
+		(obj)->Enter();
+		//Debug::Log("up", true);
+	}
+	else if (!(bitflag & (1 << 0))) {
+		(obj)->Leave();
+		//Debug::Log("!up", true);
+	}
+
+	//描画
+	if (bitflag & (1 << 1)) {
+		(obj)->Visible();
+		//Debug::Log("draw", true);
+	}
+	else if (!(bitflag & (1 << 1))) {
+		(obj)->Invisible();
+		//Debug::Log("!draw", true);
+	}
+
+	//初期化
+	if (bitflag & (1 << 2)) {
+		(obj)->SetInitialized();
+		//Debug::Log("init", true);
+	}
+}
+
+//フラグのセット（再帰処理）
+void GameObject::FlagObjectSub(GameObject* obj, unsigned int _bitflag) {
+
+	if (!childList_.empty())
+	{
+		auto list = obj->GetChildList();
+		auto it = list->begin();
+		auto end = list->end();
+
+		//Debug::Log(GetChildListSize(), true);
+
+		while (it != end)
+		{
+			FlagObjectSub(*it,_bitflag);
+
+			BitConvertFlag(*it, _bitflag);
+
+			it++;
+		}
+	}
 }
 
 //子オブジェクトを全て削除
@@ -293,7 +415,9 @@ GameObject * GameObject::GetRootJob()
 
 void GameObject::UpdateSub()
 {
-	Update();
+	if(IsEntered())
+		Update();
+
 	Transform();
 
 	for (auto it = childList_.begin(); it != childList_.end(); it++)
@@ -320,7 +444,8 @@ void GameObject::UpdateSub()
 
 void GameObject::DrawSub()
 {
-	Draw();
+	if(IsVisibled())
+		Draw();
 
 
 	//リリース時は削除

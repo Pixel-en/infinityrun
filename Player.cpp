@@ -1,7 +1,6 @@
 #include "Player.h"
 #include "Engine/Model.h"
 #include "Engine/Input.h"
-#include "Engine/Debug.h"
 #include "Engine/SphereCollider.h"
 #include "Engine/SceneManager.h"
 
@@ -32,6 +31,7 @@ void Player::Initialize()
 
 void Player::Update()
 {
+
 	if (Input::IsKeyDown(DIK_LEFT) && !Ron_)
 		Lon_ = true;
 	if (Input::IsKeyDown(DIK_RIGHT) && !Lon_)
@@ -81,7 +81,7 @@ void Player::OnCollision(GameObject* pTarget)
 	if (pTarget->GetObjectName() == "Enemy") {
 		SceneManager* s = (SceneManager*)FindObject("SceneManager");
 		s->SetPoint(point);
-		KillMe();
+		//KillMe();
 	}
 
 	if (pTarget->GetObjectName() == "Road") {

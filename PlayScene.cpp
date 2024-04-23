@@ -4,12 +4,11 @@
 #include "Enemy.h"
 #include "Road.h"
 #include "Spawn.h"
-#include "Engine/Debug.h"
 #include "Engine/BoxCollider.h"
 #include "Engine/SceneManager.h"
 
 PlayScene::PlayScene(GameObject* parent)
-	:GameObject(parent,"PlayScene"),x1(0),x2(0),EnemySpeed(7.0),framecnt(0),Spawnbuffer(false),pframecnt(0)
+	:GameObject(parent,"PlayScene"),x1(0),x2(0),EnemySpeed(7.0),framecnt(0),Spawnbuffer(false), pdownbuffer(0)
 {
 }
 
@@ -29,8 +28,11 @@ void PlayScene::Initialize()
 void PlayScene::Update()
 {
 
+	//Debug::Log(GetChildListSize(), true);
 
+	Debug::Log(FindChildObjectCount("Enemy"), true);
 
+	//道を出現させる
 	if (p->GetRoadIn()) {
 		FindChildObject("Road")->ClearCollider();
 		Road* r = Instantiate<Road>(this);
@@ -38,29 +40,34 @@ void PlayScene::Update()
 		p->SetRoadIn(false);
 	}
 
+
+	//敵をスポーンさせる
 	if (FindChildObject("Enemy") == nullptr || (FindObject("Spawn") == nullptr && !Spawnbuffer)) {
 		EnemySpawn();
 		Spawnbuffer = true;
 	}
 
+	//スポーンラインを出す
 	if (Spawnbuffer) {
-		framecnt++;
-		if (framecnt >= 60-(EnemySpeed-7)*2) {
+		//framecnt++;
+		//if (framecnt >= 60-(EnemySpeed-7)*2) {
+		if (FindChildObjectCount("Enemy") <= 2) {
 			Instantiate<Spawn>(this);
 			Spawnbuffer = false;
-			framecnt = 0;
 		}
 	}
 
+	//プレイヤーが倒れてからリザルトまでのバッファをとる
 	if (FindChildObject("Player") == nullptr) {
-		pframecnt++;
-		if (pframecnt >= 60) {
+		if (pdownbuffer <= 0) {
+			SetFlagAllChildren(true, true, true);
+		}
+		pdownbuffer++;
+		if (pdownbuffer >= 60) {
 			SceneManager* s = (SceneManager*)FindObject("SceneManager");
 			s->ChangeScene(SCENE_ID_RESULT);
 		}
 	}
-
-
 }
 
 void PlayScene::Draw()
@@ -73,8 +80,11 @@ void PlayScene::Release()
 
 void PlayScene::EnemySpawn()
 {
+	if (EnemySpeed < 40.0) {
+		EnemySpeed += 0.25;
+		p->Setupspeed(p->Getupspeed() - 0.025);
+	}
 
-	EnemySpeed += 0.25;
 	x1 = 0;
 	x2 = 0;
 
@@ -90,5 +100,4 @@ void PlayScene::EnemySpawn()
 	e2->SetPosition(XMFLOAT3(float(x2) * 1.5, 0, 20.0f));
 	e2->SetSpeed(EnemySpeed);
 
-	p->Setupspeed(p->Getupspeed() - 0.1);
 }

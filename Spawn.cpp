@@ -1,6 +1,5 @@
 #include "Spawn.h"
 #include "Engine/BoxCollider.h"
-#include "Engine/Debug.h"
 
 Spawn::Spawn(GameObject* parent)
 	:GameObject(parent,"Spawn")

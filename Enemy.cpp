@@ -1,6 +1,5 @@
 #include "Enemy.h"
 #include "Engine/Model.h"
-#include "Engine/Debug.h"
 #include "Engine/SphereCollider.h"
 
 Enemy::Enemy(GameObject* parent)

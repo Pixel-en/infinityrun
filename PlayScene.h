@@ -14,9 +14,8 @@ class PlayScene : public GameObject
 
 	Player *p;
 
-	int framecnt;
 	bool Spawnbuffer;
-	int pframecnt;
+	int pdownbuffer;
 
 
 public:

@@ -6,12 +6,12 @@
 #include "SphereCollider.h"
 #include "BoxCollider.h"
 #include "Transform.h"
+#include "Debug.h"
 
 
 
 
 using namespace DirectX;
-
 
 //-----------------------------------------------------------
 //全てのゲームオブジェクト（シーンも含めて）が継承するインターフェース
@@ -79,6 +79,10 @@ public:
 	//戻値：子オブジェクトリスト
 	std::list<GameObject*>* GetChildList();
 
+	//子オブジェクトリストを取得
+	//戻値：子オブジェクトリスト
+	int GetChildListSize();
+
 	//親オブジェクトを取得
 	//戻値：親オブジェクトのアドレス
 	GameObject* GetParent();
@@ -87,6 +91,11 @@ public:
 	//引数：name	検索する名前
 	//戻値：見つけたオブジェクトのアドレス（見つからなければnullptr）
 	GameObject* FindChildObject(const std::string& name);
+
+	//名前でオブジェクトを検索（対象は自分の子供以下）
+	//引数：name	検索する名前
+	//戻値：見つけたオブジェクトのアドレス（見つからなければnullptr）
+	int FindChildObjectCount(const std::string& name);
 
 	//名前でオブジェクトを検索（対象は全体）
 	//引数：検索する名前
@@ -105,10 +114,18 @@ public:
 	//引数：obj 追加するオブジェクト
 	void PushFrontChild(GameObject* obj);
 
+	/// <summary>
+	/// 子オブジェクトのフラグを一括管理
+	/// </summary>
+	/// <param name="_isup">Updateをしていいか 1ビット目</param>
+	/// <param name="_isdraw">Drawをしていいか 2ビット目</param>
+	/// <param name="_wasinit">initはしたか 3ビット目</param>
+	void SetFlagAllChildren(bool _isup, bool _isdraw, bool _wasinit);
+
+	void BitConvertFlag(GameObject* obj, unsigned bitflag);
+	
 	//子オブジェクトを全て削除
 	void KillAllChildren();
-
-
 
 	//コライダー（衝突判定）を追加する
 	void AddCollider(Collider * collider);
@@ -150,6 +167,8 @@ public:
 
 
 private:
+
+	void FlagObjectSub(GameObject* obj,unsigned int _bitflag);
 
 	//オブジェクト削除（再帰）
 	//引数：obj　削除するオブジェクト
