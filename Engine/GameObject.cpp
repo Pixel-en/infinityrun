@@ -1,13 +1,12 @@
 #include "gameObject.h"
 #include <assert.h>
 #include "global.h"
-#include <bitset>
+#include "../Extensions.h"
 
 //コンストラクタ（親も名前もなし）
 GameObject::GameObject(void) :
 	GameObject(nullptr, "")
 {
-
 }
 
 //コンストラクタ（名前なし）

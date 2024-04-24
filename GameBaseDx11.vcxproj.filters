@@ -104,6 +104,7 @@
     <ClCompile Include="Spawn.cpp" />
     <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="ResultScene.cpp" />
+    <ClCompile Include="PlayCamera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -184,6 +185,7 @@
     <ClInclude Include="Spawn.h" />
     <ClInclude Include="TitleScene.h" />
     <ClInclude Include="ResultScene.h" />
+    <ClInclude Include="PlayCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple2D.hlsl">

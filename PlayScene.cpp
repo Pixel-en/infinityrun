@@ -1,11 +1,12 @@
 #include "PlayScene.h"
-#include "Engine/Camera.h"
+#include "Engine/BoxCollider.h"
+#include "Engine/SceneManager.h"
+
 #include "Player.h"
 #include "Enemy.h"
 #include "Road.h"
 #include "Spawn.h"
-#include "Engine/BoxCollider.h"
-#include "Engine/SceneManager.h"
+#include "PlayCamera.h"
 
 PlayScene::PlayScene(GameObject* parent)
 	:GameObject(parent,"PlayScene"),x1(0),x2(0),EnemySpeed(7.0),Spawnbuffer(false), pdownbuffer(0),p(nullptr)
@@ -19,8 +20,7 @@ void PlayScene::Initialize()
 	p = Instantiate<Player>(this);
 	Instantiate<Spawn>(this);
 
-	Camera::SetPosition(XMFLOAT3(0, 1.5, -3));
-	Camera::SetTarget(XMFLOAT3(0, 0, 2));
+	Instantiate<PlayCamera>(this);
 
 
 }
@@ -30,7 +30,8 @@ void PlayScene::Update()
 
 	//Debug::Log(GetChildListSize(), true);
 
-	Debug::Log(FindChildObjectCount("Enemy"), true);
+	//Debug::Log(FindChildObjectCount("Enemy"), true);
+	
 
 	//“¹‚ðoŒ»‚³‚¹‚é
 	if (p->GetRoadIn()) {

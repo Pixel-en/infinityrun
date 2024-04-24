@@ -1,8 +1,6 @@
 #pragma once
 #include "Engine/GameObject.h"
-#include <vector>
 
-using std::vector;
 class Player;
 
 class PlayScene : public GameObject
