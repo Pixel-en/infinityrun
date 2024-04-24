@@ -81,7 +81,7 @@ void Player::OnCollision(GameObject* pTarget)
 	if (pTarget->GetObjectName() == "Enemy") {
 		SceneManager* s = (SceneManager*)FindObject("SceneManager");
 		s->SetPoint(point);
-		//KillMe();
+		KillMe();
 	}
 
 	if (pTarget->GetObjectName() == "Road") {

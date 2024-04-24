@@ -8,7 +8,7 @@
 #include "Engine/SceneManager.h"
 
 PlayScene::PlayScene(GameObject* parent)
-	:GameObject(parent,"PlayScene"),x1(0),x2(0),EnemySpeed(7.0),framecnt(0),Spawnbuffer(false), pdownbuffer(0)
+	:GameObject(parent,"PlayScene"),x1(0),x2(0),EnemySpeed(7.0),Spawnbuffer(false), pdownbuffer(0),p(nullptr)
 {
 }
 
