@@ -7,7 +7,7 @@ class Player : public GameObject
     int hModel_;
     bool Lon_;
     bool Ron_;
-    float temp_;
+    float move_;
 
     bool roadin_;
 

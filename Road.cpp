@@ -25,7 +25,7 @@ void Road::Update()
 	//transform_.position_.y = -1;
 	transform_.position_.z -= speed_ * 1 / 60;
 
-	if (transform_.position_.z <= -20) {
+	if (transform_.position_.z <= -30) {
 		KillMe();
 	}
 }

@@ -1,7 +1,6 @@
 #include "gameObject.h"
 #include <assert.h>
 #include "global.h"
-#include "../Extensions.h"
 
 //コンストラクタ（親も名前もなし）
 GameObject::GameObject(void) :
@@ -220,8 +219,6 @@ void GameObject::SetFlagAllChildren(bool _isup, bool _isdraw, bool _isinit)
 		bitflag |= (1 << 2);
 	}
 
-	Debug::Log("ビットフラグ", true);
-	Debug::Log(std::bitset<4>(bitflag).to_string(), true);
 
 	//イテレータ
 	auto it = childList_.begin();	//先頭

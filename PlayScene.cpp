@@ -9,7 +9,7 @@
 #include "PlayCamera.h"
 
 PlayScene::PlayScene(GameObject* parent)
-	:GameObject(parent,"PlayScene"),x1(0),x2(0),EnemySpeed(7.0),Spawnbuffer(false), pdownbuffer(0),p(nullptr)
+	:GameObject(parent,"PlayScene"),x1(0),x2(0),EnemySpeed(7.0),Spawnbuffer(false), pdownbuffer(0),p(nullptr),enemycnt(0)
 {
 }
 
@@ -37,7 +37,7 @@ void PlayScene::Update()
 	if (p->GetRoadIn()) {
 		FindChildObject("Road")->ClearCollider();
 		Road* r = Instantiate<Road>(this);
-		r->SetPosition(XMFLOAT3(0, 0, 15));	//z18-コライダーの位置
+		r->SetPosition(XMFLOAT3(0, 0, 25.3));
 		p->SetRoadIn(false);
 	}
 
@@ -81,10 +81,15 @@ void PlayScene::Release()
 
 void PlayScene::EnemySpawn()
 {
-	if (EnemySpeed < 40.0) {
+	enemycnt++;
+
+	if (EnemySpeed < 40.0 && enemycnt % 4 == 0) {
 		EnemySpeed += 0.25;
 		p->Setupspeed(p->Getupspeed() - 0.025);
+		enemycnt = 0;
+		//Debug::Log("SpeedUp", true);
 	}
+
 
 	x1 = 0;
 	x2 = 0;

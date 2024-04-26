@@ -14,6 +14,7 @@ class PlayScene : public GameObject
 
 	bool Spawnbuffer;
 	int pdownbuffer;
+	int enemycnt = 0;
 
 
 public:

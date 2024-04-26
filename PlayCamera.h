@@ -5,6 +5,8 @@
 class PlayCamera : public GameObject
 {
 
+    XMFLOAT3 target;
+
 public:
     //コンストラクタ
     PlayCamera(GameObject* parent);
@@ -23,4 +25,10 @@ public:
 
     //開放
     void Release() override;
+
+    //縦揺れ
+    void VerticalVibration();
+
+    //横揺れ
+    void HorizontalVibration();
 };

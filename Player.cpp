@@ -12,7 +12,7 @@ namespace {
 
 
 Player::Player(GameObject* parent)
-	:GameObject(parent, "Player"), hModel_(-1), Lon_(false),Ron_(false),temp_(0.0),roadin_(false), secondcnt(0), point(0),upspeed_(0.0f)
+	:GameObject(parent, "Player"), hModel_(-1), Lon_(false),Ron_(false),move_(0.0),roadin_(false), secondcnt(0), point(0),upspeed_(0.0f)
 {
 }
 
@@ -43,11 +43,11 @@ void Player::Update()
 		transform_.position_.x += (MOVE_SPEED - upspeed_) * 1.0 / 60.0;
 
 	if (Lon_ || Ron_) {
-		temp_ += (MOVE_SPEED - upspeed_) * 1.0 / 60.0;
-		if (temp_ >= MAX) {
+		move_+= (MOVE_SPEED - upspeed_) * 1.0 / 60.0;
+		if (move_ >= MAX) {
 			Lon_ = false;
 			Ron_ = false;
-			temp_ = 0.0;
+			move_ = 0.0;
 		}
 		
 		if (transform_.position_.x < -MAX)	//¶‚ÌêŠ‹¸³
@@ -55,6 +55,9 @@ void Player::Update()
 
 		if (transform_.position_.x > MAX)	//‰E‚ÌêŠ‹¸³
 			transform_.position_.x = MAX;
+
+		if (transform_.position_.x < -1.0f && transform_.position_.x>1.0f)
+			transform_.position_.x = 0.0f;
 	}
 
 	secondcnt++;

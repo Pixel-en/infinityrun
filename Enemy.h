@@ -6,6 +6,7 @@ class Enemy : public GameObject
 
     int hModel_;
     float speed_;
+ 
 
 public:
 
