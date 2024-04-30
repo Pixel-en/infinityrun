@@ -12,7 +12,8 @@ namespace {
 
 
 Player::Player(GameObject* parent)
-	:GameObject(parent, "Player"), hModel_(-1), Lon_(false),Ron_(false),move_(0.0),roadin_(false), secondcnt(0), point(0),upspeed_(0.0f)
+	:GameObject(parent, "Player"), hModel_(-1), Lon_(false), Ron_(false), move_(0.0), roadin_(false),
+	secondcnt(0), point(0), upspeed_(0.0f), deadme_(false)
 {
 }
 
@@ -84,7 +85,8 @@ void Player::OnCollision(GameObject* pTarget)
 	if (pTarget->GetObjectName() == "Enemy") {
 		SceneManager* s = (SceneManager*)FindObject("SceneManager");
 		s->SetPoint(point);
-		KillMe();
+		deadme_ = true;	
+		//KillMe();
 	}
 
 	if (pTarget->GetObjectName() == "Road") {

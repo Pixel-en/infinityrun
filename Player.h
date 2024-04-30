@@ -15,8 +15,10 @@ class Player : public GameObject
     int point;
 
     float upspeed_;
-
+    bool deadme_;
 public:
+
+
     //コンストラクタ
     Player(GameObject* parent);
 
@@ -42,4 +44,7 @@ public:
 
     float Getupspeed() { return upspeed_; }
     void Setupspeed(float _set) { upspeed_ = _set; }
+
+    bool GetDeadMe() { return deadme_; }
+    void SetDeadMe(bool _set) { deadme_ = _set; }
 };

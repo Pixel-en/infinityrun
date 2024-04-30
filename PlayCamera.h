@@ -28,7 +28,9 @@ public:
 
     //ècóhÇÍ
     void VerticalVibration();
+    void VerticalVibration(float _Vsize);
 
     //â°óhÇÍ
     void HorizontalVibration();
+    void HorizontalVibration(float _Vsize);
 };

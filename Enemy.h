@@ -6,7 +6,8 @@ class Enemy : public GameObject
 
     int hModel_;
     float speed_;
- 
+
+    std::string a;
 
 public:
 

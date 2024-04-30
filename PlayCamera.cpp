@@ -38,13 +38,25 @@ void PlayCamera::Release()
 
 void PlayCamera::VerticalVibration()
 {
-	target.y = (float(rand() % 5)-2) / 100.0f;
+	target.y = (float(rand() % 10) - (10 / 2)) / 100.0f;
+	Camera::SetTarget(target);
+}
+
+void PlayCamera::VerticalVibration(float _Vsize)
+{
+	target.y = (float(rand() % 40) - (40 / 2)) / _Vsize;
 	Camera::SetTarget(target);
 }
 
 void PlayCamera::HorizontalVibration()
 {
 
-	target.x = (float(rand() % 5)-2) / 100.0f;
+	target.x = (float(rand() % 10) - (10 / 2)) / 100.0f;
+	Camera::SetTarget(target);
+}
+
+void PlayCamera::HorizontalVibration(float _Vsize)
+{
+	target.x = (float(rand() % 40) - (40 / 2)) / _Vsize;
 	Camera::SetTarget(target);
 }
