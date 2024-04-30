@@ -13,7 +13,7 @@ Enemy::~Enemy()
 
 void Enemy::Initialize()
 {
-	hModel_ = Model::Load("Model\\Enemy.fbx");
+	hModel_ = Model::Load("Model\\Mercedes.fbx");
 	assert(hModel_ >= 0);
 
 	SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0.3, 0), 0.3f);

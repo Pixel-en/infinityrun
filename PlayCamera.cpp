@@ -1,6 +1,5 @@
 #include "PlayCamera.h"
 #include "Engine/Camera.h"
-#include "Engine/Input.h"
 
 
 PlayCamera::PlayCamera(GameObject* parent)
@@ -17,15 +16,15 @@ void PlayCamera::Initialize()
 	Camera::SetPosition(XMFLOAT3(0, 1.5, -3));
 	Camera::SetTarget(XMFLOAT3(0, 0, 2));
 
-
 }
 
 void PlayCamera::Update()
 {
-	if (Input::IsKey(DIK_V)) {
-		VerticalVibration();
-		HorizontalVibration();
-	}
+
+	//if (Input::IsKey(DIK_V)) {
+	//	VerticalVibration();
+	//	HorizontalVibration();
+	//}
 }
 
 void PlayCamera::Draw()
