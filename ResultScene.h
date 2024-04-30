@@ -7,6 +7,7 @@ class ResultScene : public GameObject
 
 	int hImage_;
 	Text* pText;
+	int point = 0;
 
 public:
 	//コンストラクタ

@@ -8,6 +8,8 @@
 #include "Spawn.h"
 #include "PlayCamera.h"
 
+const float ONESF{ 60.0f };	//1秒のフレーム
+
 PlayScene::PlayScene(GameObject* parent)
 	:GameObject(parent,"PlayScene"),x1(0),x2(0),EnemySpeed(7.0),Spawnbuffer(false), pdownbuffer(0),p(nullptr),enemycnt(0)
 {
@@ -61,10 +63,17 @@ void PlayScene::Update()
 	//プレイヤーが倒れてからリザルトまでのバッファをとる
 	if (FindChildObject("Player") == nullptr) {
 		if (pdownbuffer <= 0) {
-			SetFlagAllChildren(true, true, true);
+			SetFlagAllChildren(false, true, true);
 		}
+		PlayCamera* pc = Instantiate<PlayCamera>(this);
+
+		if (pdownbuffer <= int(ONESF)) {
+			pc->HorizontalVibration((pdownbuffer + 1) * (pdownbuffer + 10) / 10);
+			pc->VerticalVibration((pdownbuffer + 1) * (pdownbuffer + 10) / 10);
+		}
+
 		pdownbuffer++;
-		if (pdownbuffer >= 60) {
+		if (pdownbuffer >= int(ONESF*1.5f) ) {
 			SceneManager* s = (SceneManager*)FindObject("SceneManager");
 			s->ChangeScene(SCENE_ID_RESULT);
 		}

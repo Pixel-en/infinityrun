@@ -13,7 +13,7 @@ Road::~Road()
 
 void Road::Initialize()
 {
-	hModel_ = Model::Load("Model\\Road6.fbx");
+	hModel_ = Model::Load("Model\\Road\\Road6.fbx");
 	assert(hModel_ >= 0);
 
 	BoxCollider* collision = new BoxCollider(XMFLOAT3(0, 1, 5), XMFLOAT3(6, 1, 0.001f));

@@ -23,6 +23,9 @@ void ResultScene::Update()
 		SceneManager* s = (SceneManager*)FindObject("SceneManager");
 		s->ChangeScene(SCENE_ID_TITLE);
 	}
+
+	if (Input::IsKey(DIK_K))
+		point++;
 }
 
 void ResultScene::Draw()
@@ -33,6 +36,7 @@ void ResultScene::Draw()
 	SceneManager* s = (SceneManager*)FindObject("SceneManager");
 	pText->Draw(550, 400, "Score:");
 	pText->Draw(650, 400, s->GetPoint());
+	pText->Draw(695, 401, "seconds");
 }
 
 void ResultScene::Release()
